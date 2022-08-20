@@ -2,6 +2,8 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+BASE_DIR_ROOT = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -11,9 +13,9 @@ SECRET_KEY = 'django-insecure-o+ovqccdcdjca6f&lr_cp%1qfprfm)8i+dog$5jbn4gkjdfdlk
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = True # True For localhost and False for Live sever
+DEBUG = True
 
-LIVE_SERVER = True # True for localhost and True for Live server
+PRODUCTION = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -69,12 +71,21 @@ WSGI_APPLICATION = 'egyflix.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if PRODUCTION:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR_ROOT, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+
 
 
 
@@ -120,7 +131,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-if LIVE_SERVER:
+if PRODUCTION:
     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -128,7 +139,10 @@ else:
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+if PRODUCTION:
+    MEDIA_ROOT = os.path.join(BASE_DIR_ROOT, 'media')
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Default primary key field type

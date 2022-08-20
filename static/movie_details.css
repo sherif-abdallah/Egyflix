@@ -1,0 +1,17 @@
+.btn {
+    background-color: #c0392b;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+    background-color: white;
+}
+
+.card-text {
+    text-align: right;
+}

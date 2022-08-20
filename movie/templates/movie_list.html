@@ -1,0 +1,439 @@
+{% extends 'base.html' %} {% load static %} {% block head %}
+
+<link href="{% static 'libs/googlefonts.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'libs/owlcarousel2/dist/assets/owl.carousel.min.css' %}" />
+<link href="{% static 'libs/boxicons/css/boxicons.min.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'libs/tailwind.min.css' %}" />
+<link rel="stylesheet" href="{% static 'libs/fontawesome-6.1.1/css/all.css' %}">
+<link rel="stylesheet" href="{% static 'grid.css' %}" />
+<link rel="stylesheet" href="{% static 'category.css' %}" />
+<link rel="stylesheet" href="{% static 'app.css' %}" />
+<link rel="stylesheet" href="{% static 'movies_list.css' %}">
+
+
+{% endblock head %} {% block body %}
+<form action="{% url 'search_results' %}" autocomplete="off" method="post" spellcheck="false">
+  {% csrf_token %}
+
+  <div class="flex justify justify-center">
+    <div class="relative">
+      <div class="absolute top-4 left-3">
+        <i class="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
+      </div>
+      <input type="text" class="h-14 w-96 pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none"
+        style="color: black !important" placeholder="Search for Movies..." name="search" />
+      <div class="absolute top-2 right-2">
+        <button class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600" id="searc_submit" spellcheck="false"
+          type="submit">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'trends' %}">MORE &raquo;</a>
+    </div>
+    <div class="section-header">TRENDS</div>
+
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+      {% for movie in p reversed %} {% if movie.status == 'TRENDS' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+
+        <img src="{{ movie.image.url }}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+
+          <div class="movie-item-title" id="movie-title">{{ movie.title }}</div>
+
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-time"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+
+      <!-- END MOVIE ITEM -->
+    </div>
+  </div>
+</div>
+
+<!-- LATEST MOVIES SECTION -->
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'recently' %}">MORE &raquo;</a>
+    </div>
+    <div class="section-header">RECENTLY ADDED</div>
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+
+      {% for movie in p reversed %} {% if movie.status == 'RECENTLY ADDED' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+        <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+          <div class="movie-item-title">{{movie.title}}</div>
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-time"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- END LATEST MOVIES SECTION -->
+
+<!-- LATEST SERIES SECTION -->
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'most' %}">MORE &raquo;</a>
+    </div>
+    <div class="section-header">MOST WATCHED</div>
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+      {% for movie in p reversed %} {% if movie.status == 'MOST WATCHED' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+        <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+          <div class="movie-item-title">{{movie.title}}</div>
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-time"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+
+      <!-- END MOVIE ITEM -->
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'top' %}">MORE &raquo;</a>
+    </div>
+    <div class="section-header">TOP RATED</div>
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+      {% for movie in p reversed %} {% if movie.status == 'TOP RATED' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+        <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+          <div class="movie-item-title">{{movie.title}}</div>
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-time"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+
+      <!-- END MOVIE ITEM -->
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'action' %}">MORE &raquo;</a>
+    </div>
+    <div class="section-header">ACTION</div>
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+      {% for movie in p reversed %} {% if movie.category == 'ACTION' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+        <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+          <div class="movie-item-title">{{movie.title}}</div>
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-time"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+
+      <!-- END MOVIE ITEM -->
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'comedy' %}">MORE &raquo;</a>
+    </div>
+    <div class="section-header">COMEDY</div>
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+      {% for movie in p reversed %} {% if movie.category == 'COMEDY' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+        <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+          <div class="movie-item-title">{{movie.title}}</div>
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-time"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+
+      <!-- END MOVIE ITEM -->
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'adventure' %}">MORE &raquo;</a>
+    </div>
+    <div class="section-header">ADVENTURE</div>
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+      {% for movie in p reversed %} {% if movie.category == 'ADVENTURE' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+        <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+          <div class="movie-item-title">{{movie.title}}</div>
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-time"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+
+      <!-- END MOVIE ITEM -->
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'drama' %}">MORE &raquo;</a>
+    </div>
+    <div class="section-header">DRAMA</div>
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+      {% for movie in p reversed %} {% if movie.category == 'DRAMA' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+        <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+          <div class="movie-item-title">{{movie.title}}</div>
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-time"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+
+      <!-- END MOVIE ITEM -->
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'romance' %}">MORE &raquo;</a>
+    </div>
+    <div class="section-header">ROMANCE</div>
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+      {% for movie in p reversed %} {% if movie.category == 'ROMANCE' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+        <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+          <div class="movie-item-title">{{movie.title}}</div>
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-time"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+
+      <!-- END MOVIE ITEM -->
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'english' %}">MORE &raquo;</a>
+    </div>
+    <div class="section-header">ENGLISH</div>
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+      {% for movie in p reversed %} {% if movie.language == 'ENGLISH' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+        <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+          <div class="movie-item-title">{{movie.title}}</div>
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-location-plus"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+
+      <!-- END MOVIE ITEM -->
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'arabic' %}">MORE &raquo;</a>
+    </div>
+    <div class="section-header">ARABIC</div>
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+      {% for movie in p reversed %} {% if movie.language == 'ARABIC' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+        <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+          <div class="movie-item-title">{{movie.title}}</div>
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-location-plus"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+
+      <!-- END MOVIE ITEM -->
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div id="view_more">
+      <a href="{% url 'asian' %}">More &raquo;</a>
+    </div>
+    <div class="section-header">Asian</div>
+    <div class="movies-slide carousel-nav-center owl-carousel">
+      <!-- MOVIE ITEM -->
+      {% for movie in p reversed %} {% if movie.language == 'Asian' %}
+
+      <a href="{% url 'movie_detail' movie.pk %}" class="movie-item">
+        <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+        <div class="movie-item-content">
+          <div class="movie-item-title">{{movie.title}}</div>
+          <div class="movie-infos">
+            <div class="movie-info">
+              <i class="bx bxs-star"></i>
+              <span>{{movie.status}}</span>
+            </div>
+            <div class="movie-info">
+              <i class="bx bxs-location-plus"></i>
+              <span>{{movie.category}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endif %} {% endfor %}
+
+      <!-- END MOVIE ITEM -->
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock body %}

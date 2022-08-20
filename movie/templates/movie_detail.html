@@ -1,0 +1,92 @@
+{% extends 'base.html' %} {% load static %} {% block head %}
+
+<link href="{% static 'libs/bootstrap.min.css' %}" rel="stylesheet" />
+<link href="{% static 'libs/googlefonts.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'libs/owlcarousel2/dist/assets/owl.carousel.min.css' %}" />
+<link href="{% static 'libs/boxicons/css/boxicons.min.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'libs/fontawesome-6.1.1/css/all.css' %}">
+<link rel="stylesheet" href="{% static 'grid.css' %}" />
+<link rel="stylesheet" href="{% static 'app.css' %}" />
+<link rel="stylesheet" href="{% static 'movie_details.css' %}" />
+  
+{% endblock head %} {% block body %}
+<center>
+  <div class="movies-slide carousel-nav-center owl-carousel">
+    <a class="movie-item">
+      <img src="{{movie.image.url}}" alt="{{movie.title}}" />
+      <div class="movie-item-content">
+        <div class="movie-item-title"></div>
+        <div class="movie-infos">
+          <div class="movie-info">
+            <i class="bx bxs-star"></i>
+            <span>{{movie.status}}</span>
+          </div>
+          <div class="movie-info">
+            <i class="bx bxs-time"></i>
+            <span>{{movie.category}}</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</center>
+
+<div class="hero-image">
+  <div style="padding: 2.3em">
+    <table id="table" class="table table-dark table-hover">
+      <tbody>
+        <tr>
+          <th scope="col">Language</th>
+          <th>{{movie.language}}</th>
+        </tr>
+
+        <tr>
+          <th scope="col">Category</th>
+          <td>{{movie.category}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Status</th>
+          <td>{{movie.status}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Year of production</th>
+          <td>{{movie.came_out}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Views</th>
+          <td>{{movie.blog_view}} Viewer</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="padding: 2em">
+    <div class="card-dark" style="background-color: #212529">
+      <div class="card-header">Description</div>
+      <div class="card-body">
+        <p class="card-text" id="description">{{movie.description}}</p>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <center>
+    <h1>{{movie.title}}</h1>
+    <br />
+
+    <iframe class="video" src="{{movie.video}}" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" sandbox="allow-scripts" sandboxscrolling="no" frameborder="0"></iframe>
+
+    <br /><br />
+    <a target="_blank" href="{{ movie.download_link }}" class="btn"><i class="fa fa-download"></i> Download</a>
+  </center>
+
+
+  <script>
+    document.getElementById('facebook').setAttribute('data-href', window.location.href);
+
+    if ("{{ descripton_language }}" == "en") {
+      document.getElementById("description").style = "text-align: left;"
+    }
+  </script>
+  {% endblock body %}
+</div>

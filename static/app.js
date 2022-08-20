@@ -8,18 +8,9 @@ function loader() {
 }
 
 
-if ($('.video').length != 0) {
-    window.onload = function () {
-        loader();
-    }
-} else {
-    $(document).ready(() => {
-        loader();
-    });
-}
-
 $(document).ready(() => {
-
+    
+    loader();
     
     $('#hamburger-menu').click(() => {
         $('#hamburger-menu').toggleClass('active')

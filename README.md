@@ -16,12 +16,7 @@ Egyflix is a free streaming service that allows our members to watch TV shows an
 4. JavaScript
 5. Jquery
 7. Bootstrap
-8. Boxicons
-9. Fontawesome
-10. owlcarousel
-11. googlefonts
-12. tailwind
-13. Goormide Cloud
+8. Goormide Cloud
 
 
 ## How to run

@@ -8,7 +8,7 @@ Egyflix is a free streaming service that allows our members to watch TV shows an
   * [Tools](#tools)
   * [How to run](#how-to-run)
   * [Author](#author)
-
+ 
 ## Tools
 1. Python
 2. Django
